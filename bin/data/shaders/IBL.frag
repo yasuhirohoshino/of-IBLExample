@@ -10,8 +10,8 @@ uniform float metallic;
 uniform float cameraFar;
 uniform mat4 viewTranspose;
 
-uniform int useAlbedoTex;
-uniform sampler2D albedoTex;
+uniform int useBaseColorTex;
+uniform sampler2D baseColorTex;
 uniform int useRoughnessTex;
 uniform sampler2D roughnessTex;
 uniform int useMetallicTex;
@@ -76,11 +76,11 @@ void main (void)
     if(isHDR == 1){
         gamma = 2.2;
     }
-    if(useAlbedoTex != 1){
+    if(useBaseColorTex != 1){
         baseColor = pow(colorVarying.xyz, vec3(gamma));
     } else {
-        vec3 albedoTexColor = texture(albedoTex, mod(texCoordVarying * 1.0, 1.0)).rgb;
-        baseColor = pow(albedoTexColor * colorVarying.xyz, vec3(gamma));
+        vec3 baseColorTexColor = texture(baseColorTex, mod(texCoordVarying * 1.0, 1.0)).rgb;
+        baseColor = pow(baseColorTexColor * colorVarying.xyz, vec3(gamma));
     }
     
     float roughnessVal = 0.0;

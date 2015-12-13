@@ -54,7 +54,7 @@ class ofApp : public ofBaseApp{
     ofFbo IBLFbo;
     ofxAssimpModelLoader model;
     ofVec3f modelScale;
-    ofImage albedoTex, roughnessTex, metallicTex;
+    ofImage baseColorTex, roughnessTex, metallicTex;
     
     // toneMap
     ofShader toneMapShader;

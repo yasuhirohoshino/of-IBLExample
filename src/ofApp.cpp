@@ -59,13 +59,13 @@ void ofApp::setup(){
     cam.setFarClip(6000);
     cam.setFov(60.0);
     
-    toneMapShader.load("shaders/tonemap");
+    toneMapShader.load("shaders/tonemapAndSSAO");
     FXAAShader.load("shaders/FXAA");
-    SSAOShader.load("shaders/ssao");
+    SSAOShader.load("shaders/SSAO");
     
     ofDisableArbTex();
     randomJitter.load("random.png");
-    albedoTex.load("tex1.png");
+    baseColorTex.load("tex1.png");
     roughnessTex.load("tex2.png");
     metallicTex.load("tex3.png");
     
@@ -166,8 +166,8 @@ void ofApp::draw(){
     }
     
     if(useBaseColorMap){
-        shader.setUniform1i("useAlbedoTex", 1);
-        shader.setUniformTexture("albedoTex", albedoTex, 2);
+        shader.setUniform1i("useBaseColorTex", 1);
+        shader.setUniformTexture("albedoTex", baseColorTex, 2);
     }
     if(useRoughnessMap){
         shader.setUniform1i("useRoughnessTex", 1);

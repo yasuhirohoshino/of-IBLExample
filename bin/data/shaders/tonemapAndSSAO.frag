@@ -39,9 +39,10 @@ vec3 tonemapReinhard(vec3 color) {
 void main (void) {
     vec3 color = texture(base, texCoordVarying).rgb;
     float ssaoVal = texture(ssao, texCoordVarying).r;
+    color *= ssaoVal;
     color *= exposure;
     color = tonemapReinhard(color);
     color = toGamma(color);
-//
-    fragColor = vec4(vec3(color * ssaoVal), 1.0);
+
+    fragColor = vec4(color, 1.0);
 }
