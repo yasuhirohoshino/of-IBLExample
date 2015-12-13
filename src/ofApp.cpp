@@ -152,7 +152,7 @@ void ofApp::draw(){
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
     
-    shader.setUniform1i("useAlbedoTex", 0);
+    shader.setUniform1i("useBaseColorTex", 0);
     shader.setUniform1i("useRoughnessTex", 0);
     shader.setUniform1i("useMetallicTex", 0);
     shader.setUniform1i("useNormalTex", 0);
@@ -167,7 +167,7 @@ void ofApp::draw(){
     
     if(useBaseColorMap){
         shader.setUniform1i("useBaseColorTex", 1);
-        shader.setUniformTexture("albedoTex", baseColorTex, 2);
+        shader.setUniformTexture("baseColorTex", baseColorTex, 2);
     }
     if(useRoughnessMap){
         shader.setUniform1i("useRoughnessTex", 1);
