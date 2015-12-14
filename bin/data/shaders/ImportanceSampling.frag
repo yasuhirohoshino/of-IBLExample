@@ -65,26 +65,23 @@ float G_Smith(float Roughness, float NoV, float NoL)
 vec3 prefilterEnvMap(float Roughness, vec3 R){
     vec3 N = R;
     vec3 V = R;
-    
     vec3 PrefilteredColor = vec3(0.0);
     
-    int NumSamples = 1024;
-    float TotalWeight;
-    for (int i = 0; i < NumSamples; ++i)
-    {
+    const int NumSamples = 1024;
+    
+    for(int i=0; i<NumSamples; i++) {
         vec2 Xi = Hammersley(uint(i), uint(NumSamples));
-        vec3 H  = ImportanceSampleGGX(Xi, Roughness, N);
-        vec3 L  = 2 * dot(V, H) * H - V;
+        vec3 H = ImportanceSampleGGX(Xi, Roughness, N);
+        vec3 L = 2.0 * dot(V, H) * H - V;
         
-        float NoL = clamp(abs(dot(N, L)), 0, 1);
+        float NoL = clamp(dot(N, L), 0, 1);
         
-        if( NoL > 0 ) {
-            PrefilteredColor += (texture( envMap, L, 0 ).rgb * NoL);
-            TotalWeight += NoL;
+        if (NoL > 0.0) {
+            vec3 SampleColor = texture( envMap, L, 0 ).rgb;
+            PrefilteredColor += SampleColor;
         }
     }
-    
-    return PrefilteredColor / TotalWeight;
+    return PrefilteredColor / NumSamples;
 }
 
 void main (void) {
