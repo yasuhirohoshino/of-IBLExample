@@ -68,6 +68,7 @@ vec3 prefilterEnvMap(float Roughness, vec3 R){
     vec3 PrefilteredColor = vec3(0.0);
     
     const int NumSamples = 1024;
+    float totalsample = 0.0;
     
     for(int i=0; i<NumSamples; i++) {
         vec2 Xi = Hammersley(uint(i), uint(NumSamples));
@@ -79,9 +80,10 @@ vec3 prefilterEnvMap(float Roughness, vec3 R){
         if (NoL > 0.0) {
             vec3 SampleColor = texture( envMap, L, 0 ).rgb;
             PrefilteredColor += SampleColor;
+            totalsample++;
         }
     }
-    return PrefilteredColor / NumSamples;
+    return PrefilteredColor / totalsample;
 }
 
 void main (void) {
