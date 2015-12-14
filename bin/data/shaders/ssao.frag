@@ -98,5 +98,9 @@ void main()
     
 //    vec4 baseColor = texture(u_baseTex, texCoordVarying);
     
-    fragColor = vec4(vec3(occlusion), 1.0);
+    if(srcDepth != 1.0){
+        fragColor = vec4(vec3(occlusion), 1.0);
+    }else{
+        fragColor = vec4(vec3(1.0), 1.0);
+    }
 }
